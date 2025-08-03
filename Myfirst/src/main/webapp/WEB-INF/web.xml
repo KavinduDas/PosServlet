@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-inst..." xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web..." id="WebApp_ID" version="3.0" >
+
+<servlet>
+<servlet-name>addCustomer</servlet-name>
+<servlet-class>servlet.addCustomer</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>addCustomer</servlet-name>
+<url-pattern> /addcus </url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+<servlet-name>login</servlet-name>
+<servlet-class>servlet.login</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>login</servlet-name>
+<url-pattern> /logincus </url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>UpdateCustomer</servlet-name>
+<servlet-class>servlet.UpdateCustomer</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>UpdateCustomer</servlet-name>
+<url-pattern> /Updatecus </url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>adminCustomer</servlet-name>
+<servlet-class>servlet.adminCustomer</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>adminCustomer</servlet-name>
+<url-pattern> /admincus </url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>singleDataButton</servlet-name>
+<servlet-class>servlet.singleDataButton</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>singleDataButton</servlet-name>
+<url-pattern> /singledatbut </url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>deleteCus</servlet-name>
+<servlet-class>servlet.deleteCus</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>deleteCus</servlet-name>
+<url-pattern> /deletecustomer </url-pattern>
+</servlet-mapping>
+
+
+
+
+
+
+
+</web-app>
