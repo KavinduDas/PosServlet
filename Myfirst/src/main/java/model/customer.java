@@ -4,7 +4,7 @@ public class customer {
 	String name;
 	String email ;
 	String password;
-	int age;
+	String confirm_password;
 	public String getName() {
 		return name;
 	}
@@ -20,14 +20,14 @@ public class customer {
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
+	public void setPassword(String confirm_password) {
 		this.password = password;
 	}
-	public int getAge() {
-		return age;
+	public String getConfirm_password() {
+		return confirm_password;
 	}
-	public void setAge(int age) {
-		this.age = age;
+	public void setConfirm_password(String confirm_password) {
+		this.confirm_password = confirm_password;
 	}
 	
 	

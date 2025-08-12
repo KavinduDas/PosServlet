@@ -40,13 +40,12 @@ public class login extends HttpServlet {
 		boolean status = service.validate(cus);
 		
 		if(status) {
-			customer loginCus = service.getOne(cus);
-			request.setAttribute("customer", loginCus);  // Added as chatgpt due data no passes
-			RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
-			
+//			customer loginCus = service.getOne(cus);
+//			request.setAttribute("customer", loginCus);  // Added as chatgpt due data no passes
+			RequestDispatcher dispatcher = request.getRequestDispatcher("JavaForm.jsp");			
 			dispatcher.forward(request, response);
 		}else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("JavaForm.jsp");
 			dispatcher.forward(request, response);
 		}
 		

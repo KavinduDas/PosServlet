@@ -35,7 +35,7 @@ public class updateCustomer extends HttpServlet {
 		 
 		 cus.setName(request.getParameter("name"));
 		 cus.setName(request.getParameter("email"));
-		 cus.setAge(Integer.parseInt(request.getParameter("age")));
+		 cus.setConfirm_password(request.getParameter("age"));
 		 cus.setName(request.getParameter("password"));
 		 
 		 customerService service = new customerService();		 
