@@ -5,6 +5,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.customer;
+import model.cutomerNew;
+import model.product;
 import utils.DB_connect;
 
 public class customerService {
@@ -25,6 +27,34 @@ public class customerService {
 		}
 		
 	}
+	
+	// Adding Customer
+	public void addCustomer(cutomerNew cutomerNew) {
+		try {
+			String query = "INSERT INTO customer VALUES ('"+ cutomerNew.getAccount_number()+"','"+cutomerNew.getName()+"','"+cutomerNew.getPhone_number()+"','"+cutomerNew.getAddress()+"' ,'"+ cutomerNew.getShipping_Address()+"','"+ cutomerNew.getCity()+"')";
+			
+			Statement statement = DB_connect.getConnection().createStatement();
+			int rows = statement.executeUpdate(query);
+			System.out.println("Inserted rows: " + rows);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Adding Product 
+	public void addProduct(product pro) {
+		try {
+			String query = "INSERT INTO product VALUES ('"+ pro.getBarcode()+"','"+pro.getName()+"','"+pro.getPrice()+"','"+pro.getCategory()+"' ,'"+ pro.getSupplierid()+"')";
+			Statement statement = DB_connect.getConnection().createStatement();
+			
+			statement.executeUpdate(query);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public boolean validate(customer cus) {
 		try {
 			String query = "SELECT * FROM cashier WHERE email = '"+ cus.getEmail()+"' AND password = '"+cus.getPassword()+"' ";
@@ -42,29 +72,28 @@ public class customerService {
 		}
 		return false;
 	}
+	// I commented this beacuse i deletd catch block accidently .
 	
-	public customer getOne(customer cus) {
-		try {
-			String query = "SELECT * FROM cashier WHERE email = '"+ cus.getEmail()+"' AND password = '"+cus.getPassword()+"' ";
-			
-			Statement statement = DB_connect.getConnection().createStatement();
-			
-			ResultSet result_set = statement.executeQuery(query);
-			
-			if(result_set.next()) {
-				cus.setName(result_set.getString("name"));
-				cus.setEmail(result_set.getString("email"));
-				cus.setConfirm_password(result_set.getString("confirm_password"));
-				cus.setPassword(result_set.getString("password"));
-				
-				return cus;
-			}
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+//	public cutomerNew getOne(cutomerNew cutomerNew) {
+//		try {
+//			String query = "SELECT * FROM cashier WHERE AccountNumber = '"+ cutomerNew.getAccount_number()+"'";
+//			
+//			Statement statement = DB_connect.getConnection().createStatement();
+//			
+//			ResultSet result_set = statement.executeQuery(query);
+//			
+//			if(result_set.next()) {
+//				cutomerNew.setName(result_set.getString("name"));
+//				cutomerNew.setAccount_number(result_set.getInt("account_number"));
+//				cutomerNew.setCity(result_set.getString("city"));
+//				cutomerNew.setPhone_number(result_set.getInt("phone_number"));
+//				cutomerNew.setAddress(result_set.getString("address"));
+//				
+//				
+//				return cutomerNew;
+//			}
+//			
+
 	
 	public customer getCustomerByEmailAndPassword(String email, String password) {
 	    customer cus = null;
@@ -100,25 +129,31 @@ public class customerService {
 			e.printStackTrace();
 		}
 	}
+	// Get All Products
 	
-	public ArrayList<customer> getAllCustomer(){
+	public ArrayList<product> getAllCustomer(){
 		try {
-			ArrayList<customer> listCus = new ArrayList<customer>();
+			ArrayList<product> listCus = new ArrayList<product>();
 			
-			String query = "SELECT * FROM customer";
+			String query = "SELECT * FROM product";
 			Statement statement = DB_connect.getConnection().createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			
+	
+			
 			while(rs.next()) {
-				customer cus = new customer();
-				cus.setName(rs.getString("name"));
-				cus.setEmail(rs.getString("email"));
-				cus.setConfirm_password(rs.getString("confirm_password"));
-				cus.setPassword(rs.getString("password"));
+				product pro = new product();
+				pro.setBarcode(rs.getInt("barcode"));				
+				pro.setName(rs.getString("name"));
+				pro.setCategory(rs.getString("category"));
+				pro.setPrice(rs.getInt("price"));
+				pro.setSupplierid(rs.getString("supplier"));
+				System.out.println("Found product: " + rs.getString("name"));
+				listCus.add(pro);
 				
-				listCus.add(cus);
 				
 			}
+			System.out.println("Total products found: " + listCus.size());
 			return listCus;
 			
 			
@@ -127,6 +162,9 @@ public class customerService {
 			return null;
 		}
 	}
+	
+
+	
 	
 	public customer singleDataButton(customer cus) {
 		try {

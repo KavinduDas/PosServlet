@@ -28,6 +28,34 @@
 <servlet-class>servlet.UpdateCustomer</servlet-class>
 </servlet>
 
+
+
+<servlet>
+<servlet-name>addProduct</servlet-name>
+<servlet-class>servlet.addProduct</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>addProduct</servlet-name>
+<url-pattern> /addpro </url-pattern>
+</servlet-mapping>
+
+
+
+<servlet>
+<servlet-name>CustomerAdding</servlet-name>
+<servlet-class>servlet.CustomerAdding</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>CustomerAdding</servlet-name>
+<url-pattern> /cusadding </url-pattern>
+</servlet-mapping>
+
+
+
+
+
 <servlet-mapping>
 <servlet-name>UpdateCustomer</servlet-name>
 <url-pattern> /Updatecus </url-pattern>

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,18 +37,19 @@
             top: 0;
             z-index: 1000;
         }
-        .header img{
-        	padding-right: 10px
+        .header img {
+            padding-right: 10px;
+            height: 40px;
         }
 
-        /* Sidebar Styles - Using your existing sidebar styling */
+        /* Sidebar Styles */
         .sidebar {
             width: 180px;
             background: #2d2d2d;
             border-right: 2px solid #444;
             display: flex;
             flex-direction: column;
-            padding-top: 80px; /* Adjusted for fixed header */
+            padding-top: 80px;
             position: fixed;
             height: 100vh;
         }
@@ -88,10 +89,10 @@
             cursor: default;
         }
 
-        /* Main Content Styles - Adjusted for sidebar */
+        /* Main Content Styles */
         .main-content {
             flex: 1;
-            padding: 80px 20px 20px 200px; /* Adjusted for header and sidebar */
+            padding: 80px 20px 20px 200px;
             background-color: #1e1e1e;
         }
 
@@ -119,6 +120,11 @@
             font-size: 24px;
             font-weight: bold;
             margin: 10px 0;
+            color: white;
+        }
+
+        .card .change {
+            color: #ccc;
         }
 
         /* Recent Orders Table */
@@ -138,6 +144,7 @@
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #444;
+            color: white;
         }
 
         th {
@@ -194,13 +201,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
         }
     </style>
 </head>
 <body>
     <!-- Header -->
     <div class="header">
-     <img src="Image/gem.png" alt="Fashion Paradise Logo" class="logo">
+        <img src="Image/gem.png" alt="Fashion Paradise Logo" class="logo">
         Fashion Paradise POS System
         <div class="user-info">
             <div class="user-avatar">
@@ -210,144 +218,106 @@
         </div>
     </div>
 
-    <!-- Sidebar - Using your existing sidebar structure -->
+    <!-- Sidebar -->
     <nav class="sidebar">
-        <a href="dashboard?page=dashboard" class="menu-btn <%= request.getParameter("page") != null && request.getParameter("page").equals("dashboard") ? "active" : "" %>">
+        <a href="${pageContext.request.contextPath}/Dashboard.jsp" class="menu-btn <%= request.getRequestURI().contains("Dashboard.jsp") ? "active" : "" %>">
             <i class="fas fa-tachometer-alt"></i> Dashboard
         </a>
-        <a href="dashboard?page=customers" class="menu-btn <%= request.getParameter("page") != null && request.getParameter("page").equals("customers") ? "active" : "" %>">
-            <i class="fas fa-user-circle"></i> Customers
-        </a>
-        <a href="dashboard?page=supplier" class="menu-btn <%= request.getParameter("page") != null && request.getParameter("page").equals("supplier") ? "active" : "" %>">
+        <form action = "adminCustomer" method = "post">
+			<a href="${pageContext.request.contextPath}/adminCustomer" class="menu-btn">
+			    <i class="fas fa-user-circle"></i> Products
+			</a>
+
+        </form>
+        
+        <a href="${pageContext.request.contextPath}/Supplier.jsp" class="menu-btn <%= request.getRequestURI().contains("Supplier.jsp") ? "active" : "" %>">
             <i class="fa-solid fa-landmark"></i> Supplier
         </a>
-        <a href="dashboard?page=employee" class="menu-btn <%= request.getParameter("page") != null && request.getParameter("page").equals("employee") ? "active" : "" %>">
+        <a href="${pageContext.request.contextPath}/Employee.jsp" class="menu-btn <%= request.getRequestURI().contains("Employee.jsp") ? "active" : "" %>">
             <i class="material-symbols-outlined">badge</i> Employee
         </a>
-        <a href="dashboard?page=product" class="menu-btn <%= request.getParameter("page") != null && request.getParameter("page").equals("product") ? "active" : "" %>">
+        <a href="${pageContext.request.contextPath}/Product.jsp" class="menu-btn <%= request.getRequestURI().contains("Product.jsp") ? "active" : "" %>">
             <i class="material-symbols-outlined">add_shopping_cart</i> Product
         </a>
-        <a href="dashboard?page=sales" class="menu-btn <%= request.getParameter("page") != null && request.getParameter("page").equals("sales") ? "active" : "" %>">
+        <a href="${pageContext.request.contextPath}/Sales.jsp" class="menu-btn <%= request.getRequestURI().contains("Sales.jsp") ? "active" : "" %>">
             <i class="material-symbols-outlined">finance_mode</i> Sales
         </a>
-        <a href="dashboard?page=invoice" class="menu-btn <%= request.getParameter("page") != null && request.getParameter("page").equals("invoice") ? "active" : "" %>">
+        <a href="${pageContext.request.contextPath}/Invoice.jsp" class="menu-btn <%= request.getRequestURI().contains("Invoice.jsp") ? "active" : "" %>">
             <i class="fas fa-file-invoice"></i> Invoice
         </a>
-        <a href="dashboard?page=reports" class="menu-btn <%= request.getParameter("page") != null && request.getParameter("page").equals("reports") ? "active" : "" %>">
+        <a href="${pageContext.request.contextPath}/Reports.jsp" class="menu-btn <%= request.getRequestURI().contains("Reports.jsp") ? "active" : "" %>">
             <i class="fas fa-chart-bar"></i> Reports
         </a>
     </nav>
 
     <!-- Main Content -->
     <div class="main-content">
-        <% 
-            String pageParam = request.getParameter("page");
-            if ("dashboard".equals(pageParam) || pageParam == null) {
-        %>
-            <!-- Dashboard Content -->
-            <h1>Dashboard</h1>
+        <!-- Dashboard Content -->
+        <h1>Dashboard</h1>
+        
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+            <div class="card">
+                <h3>Today's Sales</h3>
+                <div class="value">$<%= request.getAttribute("todaySales") != null ? request.getAttribute("todaySales") : "0.00" %></div>
+                <div class="change">+5% from yesterday</div>
+            </div>
             
-            <!-- Dashboard Cards -->
-            <div class="dashboard-cards">
-                <div class="card">
-                    <h3>Today's Sales</h3>
-                    <div class="value">$<%= request.getAttribute("todaySales") != null ? request.getAttribute("todaySales") : "0.00" %></div>
-                    <div class="change">+5% from yesterday</div>
-                </div>
-                
-                <div class="card">
-                    <h3>Total Orders</h3>
-                    <div class="value"><%= request.getAttribute("totalOrders") != null ? request.getAttribute("totalOrders") : "0" %></div>
-                    <div class="change">3 new orders today</div>
-                </div>
-                
-                <div class="card">
-                    <h3>Inventory Items</h3>
-                    <div class="value"><%= request.getAttribute("inventoryCount") != null ? request.getAttribute("inventoryCount") : "0" %></div>
-                    <div class="change">5 items low in stock</div>
-                </div>
+            <div class="card">
+                <h3>Total Orders</h3>
+                <div class="value"><%= request.getAttribute("totalOrders") != null ? request.getAttribute("totalOrders") : "0" %></div>
+                <div class="change">3 new orders today</div>
             </div>
-
-            <!-- Quick POS Button -->
-            <button class="pos-button" onclick="location.href='pos.jsp'">
-                <i class="fas fa-cash-register"></i> Open POS
-            </button>
-
-            <!-- Recent Orders Table -->
-            <div class="recent-orders">
-                <h2>Recent Orders</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#1001</td>
-                            <td>John Doe</td>
-                            <td>2023-05-15</td>
-                            <td>$120.00</td>
-                            <td><span class="status completed">Completed</span></td>
-                            <td><a href="#">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>#1002</td>
-                            <td>Jane Smith</td>
-                            <td>2023-05-15</td>
-                            <td>$85.50</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td><a href="#">View</a></td>
-                        </tr>
-                    </tbody>
-                </table>
+            
+            <div class="card">
+                <h3>Inventory Items</h3>
+                <div class="value"><%= request.getAttribute("inventoryCount") != null ? request.getAttribute("inventoryCount") : "0" %></div>
+                <div class="change">5 items low in stock</div>
             </div>
-        <%
-            } else if ("product".equals(pageParam)) {
-        %>
-            <jsp:include page="Product.jsp" />
-        <% 
-            } else if ("customers".equals(pageParam)) {
-        %>
-            <h2>Customers</h2>
-            <p>Customer management content goes here.</p>
-        <% 
-            } else if ("supplier".equals(pageParam)) {
-        %>
-            <h2>Supplier</h2>
-            <p>Supplier management content goes here.</p>
-        <% 
-            } else if ("employee".equals(pageParam)) {
-        %>
-            <h2>Employee</h2>
-            <p>Employee management content goes here.</p>
-        <% 
-            } else if ("sales".equals(pageParam)) {
-        %>
-            <h2>Sales</h2>
-            <p>Sales management content goes here.</p>
-        <% 
-            } else if ("invoice".equals(pageParam)) {
-        %>
-            <h2>Invoice</h2>
-            <p>Invoice management content goes here.</p>
-        <% 
-            } else if ("reports".equals(pageParam)) {
-        %>
-            <h2>Reports</h2>
-            <p>Reports content goes here.</p>
-        <% 
-            }
-        %>
+        </div>
+
+        <!-- Quick POS Button -->
+        <button class="pos-button" onclick="location.href='${pageContext.request.contextPath}/pos.jsp'">
+            <i class="fas fa-cash-register"></i> Open POS
+        </button>
+
+        <!-- Recent Orders Table -->
+        <div class="recent-orders">
+            <h2>Recent Orders</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1001</td>
+                        <td>John Doe</td>
+                        <td>2023-05-15</td>
+                        <td>$120.00</td>
+                        <td><span class="status completed">Completed</span></td>
+                        <td><a href="#">View</a></td>
+                    </tr>
+                    <tr>
+                        <td>#1002</td>
+                        <td>Jane Smith</td>
+                        <td>2023-05-15</td>
+                        <td>$85.50</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td><a href="#">View</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-        // You can add JavaScript functionality here
         document.addEventListener('DOMContentLoaded', function() {
             // Any initialization code
         });

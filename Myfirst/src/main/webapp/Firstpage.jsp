@@ -36,7 +36,7 @@
 
       <nav class="sidebar-menu">
         <ul>
-          <li><a href="Sales.js" class="sidebar-link"><i class="fas fa-user-circle"></i>Customer</a></li>
+          <li><a href="Sales.jsp" class="sidebar-link"><i class="fas fa-user-circle"></i>Customer</a></li>
           <li><a href="#" class="sidebar-link"><i class="fa-solid fa-landmark"></i>Accounts</a></li>
           <li><a href="#" class="sidebar-link"><i class="material-symbols-outlined">finance_mode</i>Sales</a></li> 
           <li><a href="#" class="sidebar-link"><i class="material-symbols-outlined">add_shopping_cart</i>Product</a></li>

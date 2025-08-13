@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <title>Customer Management</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -179,23 +180,33 @@
             margin-left: 20px;
             background-color: var(--card-color);
         }
-        .buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .buttons button {
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .buttons button.save { background: #28a745; color: #fff; }
-        .buttons button.search { background: #007bff; color: #fff; }
-        .buttons button.update { background: #ffc107; color: #000; }
-        .buttons button.delete { background: #dc3545; color: #fff; }
+      /* Shared button group styles */
+		.buttons, .buttons-search {
+		    display: flex;
+		    justify-content: center; /* Center horizontally */
+		    gap: 15px; /* Space between buttons */
+		    margin-top: 20px; /* Space above buttons */
+		    padding: 10px 0;
+		}
+		
+		/* Shared button styles */
+		.buttons button,
+		.buttons-search button {
+		    width: 120px; /* Same length for all buttons */
+		    padding: 10px 0;
+		    font-size: 16px;
+		    font-weight: bold;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		}
+		
+		/* Individual colors */
+		.buttons button.save { background: #28a745; color: #fff; }
+		.buttons button.delete { background: #dc3545; color: #fff; }
+		.buttons-search button.search { background: #007bff; color: #fff; }
+		.buttons-search button.update { background: #ffc107; color: #000; }
+
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -313,7 +324,7 @@
             </div>
 
             <!-- Add Customer Tab -->
-            <form action ="">
+            <form action ="CustomerAdding" method = "post">
             <div class="tab-content active" id="add-customer">
 <!--                 <div class="panel"> -->
 <!--                     <div class="form-group"> -->
@@ -326,19 +337,19 @@
                         <div style="flex: 1;">
                             <div class="form-group">
                                 <label>Name:</label>
-                                <input type="text" id="c_name">
+                                <input type="text" id="c_name" name = "name">
                             </div>
                             <div class="form-group">
                                 <label>T.P Number:</label>
-                                <input type="text" id="c_tp">
+                                <input type="text" id="c_tp" name = "telenumber">
                             </div>
                             <div class="form-group">
                                 <label>Billing Address:</label>
-                                <textarea id="c_billadd"></textarea>
+                                <textarea id="c_billadd" name = "address"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Shipping Address:</label>
-                                <textarea id="c_shipadd"></textarea>
+                                <textarea id="c_shipadd" name = "shippingAddress"></textarea>
                             </div>
                             <div class="checkbox-group">
                                 <input type="checkbox" id="same" onclick="copyBillingAddress()">
@@ -346,14 +357,14 @@
                             </div>
                             <div class="form-group">
                                 <label>Bank Acc No:</label>
-                                <input type="text" id="c_bank">
+                                <input type="text" id="c_bank" name= "accountNumber">
                             </div>
                             <div class="form-group">
                                 <label>City:</label>
-                                <input type="text" id="c_city">
+                                <input type="text" id="c_city" name = "city">
                             </div>
                         </div>
-                        </form>
+                        
                         <div class="contact-person">
                             <h3>Contact Person</h3>
                             <div class="form-group">
@@ -378,60 +389,74 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="buttons">
-                        <button class="save" onclick="saveCustomer()">Save</button>
-                        <button class="search" onclick="searchCustomer()">Search</button>
-                        <button class="update" onclick="updateCustomer()">Update</button>
+                        <button type = "submit" class="save">Save</button>                       
                         <button class="delete" onclick="deleteCustomer()">Delete</button>
                     </div>
                 </div>
+                </form>
             </div>
 
             <!-- Search Customer Tab -->
+            <c:set var = "cus" value = "${searchedcus}" />
+            <form action = "SearchCustomerSevlet" method = "post">
             <div class="tab-content" id="search-customer">
                 <div class="panel">
                     <div class="form-group">
-                        <label>Customer Name:</label>
-                        <input type="text" id="c_search_tbl" onkeyup="searchTable()">
+                        <label>Customer Account:</label>
+                        <input type="text" id="c_search_tbl" name = "account" value = "${cus.account_number}">
                     </div>
                     <div style="display: flex; gap: 20px;">
                         <div class="form-group">
                             <label>City:</label>
-                            <input type="text" id="sh_city" onkeyup="searchTable()">
+                            <input type="text" id="sh_city" value ="${cus.city}">
                         </div>
                         <div class="form-group">
                             <label>Telephone:</label>
-                            <input type="text" id="sh_tp" onkeyup="searchTable()">
+                            <input type="text" id="sh_tp"  value ="${cus.phone_number}">
                         </div>
                         <div class="form-group">
-                            <label>Contact Person:</label>
-                            <input type="text" id="sh_cp" onkeyup="searchTable()">
+                            <label>Name :</label>
+                            <input type="text" id="sh_cp" value ="${cus.name}">
                         </div>
                         <div class="form-group">
-                            <label>Person Name:</label>
-                            <input type="text" id="sh_pn" onkeyup="searchTable()">
+                            <label>Address</label>
+                            <input type="text" id="sh_pn"  value ="${cus.address}">
                         </div>
                     </div>
                 </div>
                 <table id="customerTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Customer Name</th>
+                    <thead>                        
+                           <tr> 
+                            <th>Account Number</th>
+                            <th>Person Name</th>
                             <th>T.P Number</th>
                             <th>Billing Address</th>
-                            <th>Shipping Address</th>
-                            <th>Bank</th>
-                            <th>City</th>
-                            <th>Person Name</th>
-                            <th>Contact Person</th>
-                            <th>Person TP</th>
-                            <th>Email</th>
-                            <th>Online</th>
+                            <th>Shipping Address</th>                          
+                            <th>City</th>                           
+                       
                         </tr>
                     </thead>
-                    <tbody id="tableBody"></tbody>
+                    <tbody id="tableBody">
+                    <c:forEach var="cus" items="${customer}">
+                    <tr>
+                    <td>${cus.account_number}</td>
+                    <td>${cus.name}</td>
+                    <td>${cus.phone_number}</td>
+                    <td>${cus.shipping_Address}</td>
+                    <td>${cus.city}</td>                   
+                    
+                    </tr>                    
+                   </c:forEach>
+                    </tbody>
                 </table>
+               
+                <div class = "buttons-search">
+                		<button type = "submit"  class="search">Search</button>
+                        <button class="update" onclick="updateCustomer()">Update</button>
+                </div>
+                </form>
             </div>
 
             <!-- Reports Tab -->
@@ -448,7 +473,7 @@
         </div>
     </div>
 
-    <script>
+  <!--   <script>
         // Simulated database
         let customers = [];
         let nextId = 1;
@@ -649,6 +674,6 @@
 
         // Initial table load
         loadTable();
-    </script>
+    </script> -->
 </body>
 </html>

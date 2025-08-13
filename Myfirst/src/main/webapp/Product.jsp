@@ -1,67 +1,175 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Management</title>
+    <title>Product Management - Fashion Paradise POS</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <style>
+        :root {
+            --bg-color: #f5f5f5;
+            --sidebar-color: #2d2d2d;
+            --card-color: #ffffff;
+            --text-color: #333333;
+            --highlight-color: #e0e0e0;
+            --border-color: #d0d0d0;
+            --dark-text: #2d2d2d;
+            --light-text: #666666;
+        }
+
         body {
             font-family: 'Tahoma', sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            background-color: #1e1e1e;
+            color: white;
+            display: flex;
+            min-height: 100vh;
         }
+
+        /* Header Styles */
+        .header {
+            height: 60px;
+            background: #1e1e1e;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 180px;
+            background: var(--sidebar-color);
+            border-right: 2px solid #444;
+            display: flex;
+            flex-direction: column;
+            padding-top: 80px;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 5px 10px;
+            background: #3a3a3a;
+            border: 1px solid #444;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            color: #eee;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn i {
+            margin-right: 10px;
+            font-size: 18px;
+            vertical-align: middle;
+        }
+
+        .menu-btn:hover {
+            background: #4a4a4a;
+            border-color: #555;
+            color: #fff;
+        }
+
+        .menu-btn.active {
+            background: #5a5a5a;
+            border-color: #666;
+            color: #fff;
+            cursor: default;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 80px 20px 20px 200px;
+            background-color: #1e1e1e;
+        }
+
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            background: #fff;
+            background: var(--card-color);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             display: flex;
+            gap: 20px;
         }
+
         .left-panel {
             flex: 1;
             padding-right: 20px;
         }
+
         .right-panel {
             flex: 1;
         }
+
         .panel {
-            border: 1px solid #ccc;
+            border: 1px solid var(--border-color);
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
+            background-color: var(--card-color);
         }
+
         .form-group {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
         }
+
         .form-group label {
             width: 100px;
             font-size: 14px;
             font-weight: bold;
             margin-right: 10px;
+            color: var(--dark-text);
         }
+
         .form-group input {
             flex: 1;
             padding: 8px;
             font-size: 14px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--border-color);
             border-radius: 4px;
+            background-color: var(--card-color);
+            color: var(--dark-text);
         }
+
         .buttons {
             display: flex;
             gap: 10px;
             justify-content: center;
         }
+
         .buttons button {
             padding: 10px 20px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
             border: none;
             border-radius: 5px;
@@ -70,207 +178,156 @@
             align-items: center;
             gap: 5px;
         }
+
         .buttons button.save { background: #28a745; color: #fff; }
         .buttons button.search { background: #007bff; color: #fff; }
         .buttons button.update { background: #ffc107; color: #000; }
         .buttons button.delete { background: #dc3545; color: #fff; }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
+
         table, th, td {
-            border: 1px solid #ccc;
+            border: 1px solid var(--border-color);
         }
+
         th, td {
             padding: 10px;
             text-align: left;
+            color: var(--dark-text);
         }
+
         th {
             background: #f8f9fa;
             font-weight: bold;
         }
+
         tr:hover {
             background: #f1f1f1;
             cursor: pointer;
         }
+
+        h3 {
+            color: var(--dark-text);
+        }
+
+        /* User Info */
+        .user-info {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 20px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="left-panel">
-            <div class="panel">
-                <h3>Product Info</h3>
-                <div class="form-group">
-                    <label>Search ID:</label>
-                    <input type="text" id="p_src" value="0">
-                </div>
+    <!-- Header -->
+    <div class="header">
+        <img src="Image/gem.png" alt="Fashion Paradise Logo" class="logo">
+        Fashion Paradise POS System
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
             </div>
-            <div class="panel">
-                <div class="form-group">
-                    <label>Name:</label>
-                    <input type="text" id="p_name" value="0">
-                </div>
-                <div class="form-group">
-                    <label>Bar Code:</label>
-                    <input type="text" id="p_bcode" value="0">
-                </div>
-                <div class="form-group">
-                    <label>Price:</label>
-                    <input type="text" id="p_price" value="0">
-                </div>
-                <div class="form-group">
-                    <label>Qty:</label>
-                    <input type="text" id="p_qty" value="0">
-                </div>
-                <div class="form-group">
-                    <label>Supplier ID:</label>
-                    <input type="text" id="p_sid" value="0">
-                </div>
-                <div class="buttons">
-                    <button class="save" onclick="saveProduct()">Save</button>
-                    <button class="search" onclick="searchProduct()">Search</button>
-                    <button class="update" onclick="updateProduct()">Update</button>
-                    <button class="delete" onclick="deleteProduct()">Delete</button>
-                </div>
-            </div>
-        </div>
-        <div class="right-panel">
-            <div class="form-group">
-                <label>Search:</label>
-                <input type="text" id="c_search_tbl" onkeyup="searchTable()" value="0">
-            </div>
-            <table id="productTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Product Name</th>
-                        <th>Bar Code</th>
-                        <th>Price</th>
-                        <th>Qty</th>
-                        <th>SID</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody"></tbody>
-            </table>
+            <span>Admin User</span>
         </div>
     </div>
 
-    <script>
-        // Simulated database
-        let products = [];
-        let nextId = 1;
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <a href="dashboard?page=dashboard" class="menu-btn">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="Customer.jsp" class="menu-btn">
+            <i class="fas fa-user-circle"></i> Customers
+        </a>
+        <a href="dashboard?page=supplier" class="menu-btn">
+            <i class="fa-solid fa-landmark"></i> Supplier
+        </a>
+        <a href="dashboard?page=employee" class="menu-btn">
+            <i class="material-symbols-outlined">badge</i> Employee
+        </a>
+        <a href="Product.jsp" class="menu-btn active">
+            <i class="material-symbols-outlined">add_shopping_cart</i> Product
+        </a>
+        <a href="dashboard?page=sales" class="menu-btn">
+            <i class="material-symbols-outlined">finance_mode</i> Sales
+        </a>
+        <a href="dashboard?page=invoice" class="menu-btn">
+            <i class="fas fa-file-invoice"></i> Invoice
+        </a>
+        <a href="dashboard?page=reports" class="menu-btn">
+            <i class="fas fa-chart-bar"></i> Reports
+        </a>
+    </nav>
 
-        // Load table
-        function loadTable(data = products) {
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
-            data.forEach(product => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${product.id}</td>
-                    <td>${product.product_name}</td>
-                    <td>${product.bar_code}</td>
-                    <td>${product.price}</td>
-                    <td>${product.qty}</td>
-                    <td>${product.sid}</td>
-                `;
-                row.onclick = () => populateForm(product);
-                tbody.appendChild(row);
-            });
-        }
 
-        // Populate form when table row is clicked
-        function populateForm(product) {
-            document.getElementById('p_src').value = product.id;
-            document.getElementById('p_name').value = product.product_name;
-            document.getElementById('p_bcode').value = product.bar_code;
-            document.getElementById('p_price').value = product.price;
-            document.getElementById('p_qty').value = product.qty;
-            document.getElementById('p_sid').value = product.sid;
-        }
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+      
+            <div class="left-panel">
+                <div class="panel">
+                    <h3>Product Info</h3>
 
-        // Save product
-        function saveProduct() {
-            const product = {
-                id: nextId++,
-                product_name: document.getElementById('p_name').value,
-                bar_code: document.getElementById('p_bcode').value,
-                price: document.getElementById('p_price').value,
-                qty: document.getElementById('p_qty').value,
-                sid: document.getElementById('p_sid').value
-            };
-            products.push(product);
-            alert('Data saved');
-            loadTable();
-            clearForm();
-        }
+                </div>
+                 <form action="addProduct" method = "post">
+                <div class="panel">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" id="p_name" name = "name">
+                    </div>
+                    <div class="form-group">
+                        <label>Bar Code:</label>
+                        <input type="text" id="p_bcode" name = "barcode" >
+                    </div>
+                    <div class="form-group">
+                        <label>Price:</label>
+                        <input type="text" id="p_price" name = "price">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <input type="text" id="p_qty" name = "category">
+                    </div>
+                    <div class="form-group">
+                        <label>Supplier ID:</label>
+                        <input type="text" id="p_sid" name = "supplier">
+                    </div>
+                    <div class="buttons">
+                        <button class="save" type = "submit">Save</button>
+                        <button class="search" onclick="searchProduct()">Search</button>
+                        <button class="update" onclick="updateProduct()">Update</button>
+                        <button class="delete" onclick="deleteProduct()">Delete</button>
+                    </div>
+                       </div>
+                       <c:if test="${success}">
+					<script>
+					    alert("Successfully updated!");
+					</script>
+					</c:if>
+                      </form>
+                </div>
+            </div>
+           
+ 
+        </div>
+ 
 
-        // Search product by ID
-        function searchProduct() {
-            const id = document.getElementById('p_src').value;
-            const product = products.find(p => p.id == id);
-            if (product) {
-                populateForm(product);
-            } else {
-                alert('Product not found');
-            }
-        }
 
-        // Update product
-        function updateProduct() {
-            const id = document.getElementById('p_src').value;
-            const index = products.findIndex(p => p.id == id);
-            if (index !== -1) {
-                products[index] = {
-                    id: parseInt(id),
-                    product_name: document.getElementById('p_name').value,
-                    bar_code: document.getElementById('p_bcode').value,
-                    price: document.getElementById('p_price').value,
-                    qty: document.getElementById('p_qty').value,
-                    sid: document.getElementById('p_sid').value
-                };
-                alert('Data updated');
-                loadTable();
-                clearForm();
-            } else {
-                alert('Product not found');
-            }
-        }
-
-        // Delete product
-        function deleteProduct() {
-            const id = document.getElementById('p_src').value;
-            const index = products.findIndex(p => p.id == id);
-            if (index !== -1) {
-                products.splice(index, 1);
-                alert('Data deleted');
-                loadTable();
-                clearForm();
-            } else {
-                alert('Product not found');
-            }
-        }
-
-        // Clear form
-        function clearForm() {
-            document.getElementById('p_name').value = '0';
-            document.getElementById('p_bcode').value = '0';
-            document.getElementById('p_price').value = '0';
-            document.getElementById('p_qty').value = '0';
-            document.getElementById('p_sid').value = '0';
-            document.getElementById('p_src').value = '0';
-        }
-
-        // Search table
-        function searchTable() {
-            const name = document.getElementById('c_search_tbl').value.toLowerCase();
-            const filtered = products.filter(p => p.product_name.toLowerCase().includes(name));
-            loadTable(filtered);
-        }
-
-        // Initial table load
-        loadTable();
-    </script>
 </body>
 </html>

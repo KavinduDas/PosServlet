@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.customer;
+import model.cutomerNew;
+import model.product;
 import services.customerService;
 
 
@@ -27,17 +29,23 @@ public class adminCustomer extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	    customerService service = new customerService();
+	    ArrayList<product> productList = service.getAllCustomer();
+	    request.setAttribute("product", productList);
+
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("ProductNew.jsp");
+	    dispatcher.forward(request, response);
 	}
+	
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		customerService service = new customerService();
-		ArrayList<customer> customer = service.getAllCustomer();
-		request.setAttribute("customer",customer);
+		ArrayList<product> product = service.getAllCustomer();
+		request.setAttribute("product",product);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("AdminTable.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ProductNew.jsp");
 		dispatcher.forward(request, response);
 	}
 

@@ -207,6 +207,7 @@ span.error {
 
     <div class="auth-section">
     <h2>Login Portal</h2>
+    
     <form action="login" method="post" id="login-form">
 
  <div class="auth-field">
