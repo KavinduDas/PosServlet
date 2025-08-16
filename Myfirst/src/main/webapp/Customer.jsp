@@ -399,8 +399,9 @@
             </div>
 
             <!-- Search Customer Tab -->
-            <c:set var = "cus" value = "${searchedcus}" />
-            <form action = "SearchCustomerSevlet" method = "post">
+            <form action = "customerSearch" method = "post">
+            <input type="hidden" name="activeTab" value="search-customer">
+            
             <div class="tab-content" id="search-customer">
                 <div class="panel">
                     <div class="form-group">
@@ -439,7 +440,7 @@
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                    <c:forEach var="cus" items="${customer}">
+                    <c:forEach var="cus" items="${customerSearch}">
                     <tr>
                     <td>${cus.account_number}</td>
                     <td>${cus.name}</td>
@@ -453,11 +454,15 @@
                 </table>
                
                 <div class = "buttons-search">
+                
+                <input type="hidden" name="activeTab" value="search-customer">
                 		<button type = "submit"  class="search">Search</button>
                         <button class="update" onclick="updateCustomer()">Update</button>
+                 
                 </div>
-                </form>
+                
             </div>
+            </form>
 
             <!-- Reports Tab -->
             <div class="tab-content" id="reports">
@@ -471,209 +476,30 @@
                 </div>
             </div>
         </div>
+        
     </div>
 
-  <!--   <script>
-        // Simulated database
-        let customers = [];
-        let nextId = 1;
-
-        // Tab navigation
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                tab.classList.add('active');
-                document.getElementById(tab.dataset.tab).classList.add('active');
-            });
-        });
-
-        // Copy billing address to shipping address
-        function copyBillingAddress() {
-            const billing = document.getElementById('c_billadd').value;
-            const shipping = document.getElementById('c_shipadd');
-            if (document.getElementById('same').checked) {
-                shipping.value = billing;
-            } else {
-                shipping.value = '';
-            }
-        }
-
-        // Load table
-        function loadTable(data = customers) {
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
-            data.forEach(customer => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${customer.id}</td>
-                    <td>${customer.customer_name}</td>
-                    <td>${customer.tp_number}</td>
-                    <td>${customer.billing_address}</td>
-                    <td>${customer.shipping_address}</td>
-                    <td>${customer.bank}</td>
-                    <td>${customer.city}</td>
-                    <td>${customer.person_name}</td>
-                    <td>${customer.contact_person}</td>
-                    <td>${customer.person_tp}</td>
-                    <td>${customer.email}</td>
-                    <td>${customer.online}</td>
-                `;
-                row.onclick = () => populateForm(customer);
-                tbody.appendChild(row);
-            });
-        }
-
-        // Populate form when table row is clicked
-        function populateForm(customer) {
-            document.getElementById('c_search').value = customer.id;
-            document.getElementById('c_name').value = customer.customer_name;
-            document.getElementById('c_tp').value = customer.tp_number;
-            document.getElementById('c_billadd').value = customer.billing_address;
-            document.getElementById('c_shipadd').value = customer.shipping_address;
-            document.getElementById('c_bank').value = customer.bank;
-            document.getElementById('c_city').value = customer.city;
-            document.getElementById('cp_name').value = customer.person_name;
-            document.getElementById('c_person').value = customer.contact_person;
-            document.getElementById('cp_tp').value = customer.person_tp;
-            document.getElementById('cp_email').value = customer.email;
-            document.getElementById('cp_online').value = customer.online;
-
-            // Switch to Add Customer tab
+ <script>
+    // Tab navigation
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelector('.tab[data-tab="add-customer"]').classList.add('active');
-            document.getElementById('add-customer').classList.add('active');
-        }
 
-        // Save customer
-        function saveCustomer() {
-            const customer = {
-                id: nextId++,
-                customer_name: document.getElementById('c_name').value,
-                tp_number: document.getElementById('c_tp').value,
-                billing_address: document.getElementById('c_billadd').value,
-                shipping_address: document.getElementById('c_shipadd').value,
-                bank: document.getElementById('c_bank').value,
-                city: document.getElementById('c_city').value,
-                person_name: document.getElementById('cp_name').value,
-                contact_person: document.getElementById('c_person').value,
-                person_tp: document.getElementById('cp_tp').value,
-                email: document.getElementById('cp_email').value,
-                online: document.getElementById('cp_online').value
-            };
-            customers.push(customer);
-            alert('Data saved');
-            loadTable();
-            clearForm();
-        }
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.tab).classList.add('active');
+        });
+    });
 
-        // Search customer by ID
-        function searchCustomer() {
-            const id = document.getElementById('c_search').value;
-            const customer = customers.find(c => c.id == id);
-            if (customer) {
-                populateForm(customer);
-            } else {
-                alert('Customer not found');
-            }
-        }
-
-        // Update customer
-        function updateCustomer() {
-            const id = document.getElementById('c_search').value;
-            const index = customers.findIndex(c => c.id == id);
-            if (index !== -1) {
-                customers[index] = {
-                    id: parseInt(id),
-                    customer_name: document.getElementById('c_name').value,
-                    tp_number: document.getElementById('c_tp').value,
-                    billing_address: document.getElementById('c_billadd').value,
-                    shipping_address: document.getElementById('c_shipadd').value,
-                    bank: document.getElementById('c_bank').value,
-                    city: document.getElementById('c_city').value,
-                    person_name: document.getElementById('cp_name').value,
-                    contact_person: document.getElementById('c_person').value,
-                    person_tp: document.getElementById('cp_tp').value,
-                    email: document.getElementById('cp_email').value,
-                    online: document.getElementById('cp_online').value
-                };
-                alert('Data updated');
-                loadTable();
-                clearForm();
-            } else {
-                alert('Customer not found');
-            }
-        }
-
-        // Delete customer
-        function deleteCustomer() {
-            const id = document.getElementById('c_search').value;
-            const index = customers.findIndex(c => c.id == id);
-            if (index !== -1) {
-                customers.splice(index, 1);
-                alert('Data deleted');
-                loadTable();
-                clearForm();
-            } else {
-                alert('Customer not found');
-            }
-        }
-
-        // Clear form
-        function clearForm() {
-            document.getElementById('c_name').value = '';
-            document.getElementById('c_tp').value = '';
-            document.getElementById('c_billadd').value = '';
-            document.getElementById('c_shipadd').value = '';
-            document.getElementById('c_bank').value = '';
-            document.getElementById('c_city').value = '';
-            document.getElementById('cp_name').value = '';
-            document.getElementById('c_person').value = '';
-            document.getElementById('cp_tp').value = '';
-            document.getElementById('cp_email').value = '';
-            document.getElementById('cp_online').value = '';
-            document.getElementById('c_search').value = '0';
-        }
-
-        // Search table
-        function searchTable() {
-            const city = document.getElementById('sh_city').value.toLowerCase();
-            const tp = document.getElementById('sh_tp').value.toLowerCase();
-            const cp = document.getElementById('sh_cp').value.toLowerCase();
-            const pn = document.getElementById('sh_pn').value.toLowerCase();
-            const name = document.getElementById('c_search_tbl').value.toLowerCase();
-
-            const filtered = customers.filter(c =>
-                (name === '' || c.customer_name.toLowerCase().includes(name)) &&
-                (city === '' || c.city.toLowerCase().includes(city)) &&
-                (tp === '' || c.tp_number.toLowerCase().includes(tp)) &&
-                (cp === '' || c.contact_person.toLowerCase().includes(cp)) &&
-                (pn === '' || c.person_name.toLowerCase().includes(pn))
-            );
-            loadTable(filtered);
-        }
-
-        // View all customer report (simulated)
-        function viewAllCustomerReport() {
-            alert('Displaying all customer report (simulated)');
-            console.log('All Customers:', customers);
-        }
-
-        // View customer report by ID (simulated)
-        function viewCustomerReport() {
-            const id = document.getElementById('cid').value;
-            const customer = customers.find(c => c.id == id);
-            if (customer) {
-                alert(`Displaying report for Customer ID ${id} (simulated)`);
-                console.log('Customer Report:', customer);
-            } else {
-                alert('Customer not found');
-            }
-        }
-
-        // Initial table load
-        loadTable();
-    </script> -->
+    // Check URL parameter or form submission to set active tab
+    window.onload = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeTab = '<%= request.getParameter("activeTab") != null ? request.getParameter("activeTab") : "add-customer" %>';
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelector(`.tab[data-tab="${activeTab}"]`).classList.add('active');
+        document.getElementById(activeTab).classList.add('active');
+    };
+</script>
 </body>
 </html>

@@ -107,22 +107,30 @@
             flex: 1;
             padding: 80px 20px 20px 200px;
             background-color: #1e1e1e;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
         .container {
             max-width: 1000px;
-            margin: 0 auto;
+            width: 100%;
+            margin: 20px 0;
             background: var(--card-color);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            padding: 30px;
             display: flex;
             gap: 20px;
+            align-items: stretch;
         }
 
         .left-panel {
             flex: 1;
             padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .right-panel {
@@ -131,29 +139,41 @@
 
         .panel {
             border: 1px solid var(--border-color);
-            padding: 15px;
+            padding: 20px;
             border-radius: 5px;
-            margin-bottom: 20px;
             background-color: var(--card-color);
+            transition: all 0.3s ease;
+        }
+
+        .panel:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
         }
 
         .form-group {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
+            padding: 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group:hover {
+            background-color: var(--highlight-color);
         }
 
         .form-group label {
             width: 100px;
             font-size: 14px;
             font-weight: bold;
-            margin-right: 10px;
+            margin-right: 15px;
             color: var(--dark-text);
         }
 
         .form-group input {
             flex: 1;
-            padding: 8px;
+            padding: 10px;
             font-size: 14px;
             border: 1px solid var(--border-color);
             border-radius: 4px;
@@ -163,8 +183,9 @@
 
         .buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
+            margin-top: 20px;
         }
 
         .buttons button {
@@ -212,6 +233,8 @@
 
         h3 {
             color: var(--dark-text);
+            text-align: center;
+            margin: 0 0 15px 0;
         }
 
         /* User Info */
@@ -276,58 +299,48 @@
         </a>
     </nav>
 
-
     <!-- Main Content -->
     <div class="main-content">
         <div class="container">
-      
             <div class="left-panel">
                 <div class="panel">
                     <h3>Product Info</h3>
-
                 </div>
-                 <form action="addProduct" method = "post">
-                <div class="panel">
-                    <div class="form-group">
-                        <label>Name:</label>
-                        <input type="text" id="p_name" name = "name">
+                <form action="addProduct" method="post">
+                    <div class="panel">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" id="p_name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label>Bar Code:</label>
+                            <input type="text" id="p_bcode" name="barcode">
+                        </div>
+                        <div class="form-group">
+                            <label>Price:</label>
+                            <input type="text" id="p_price" name="price">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <input type="text" id="p_qty" name="category">
+                        </div>
+                        <div class="form-group">
+                            <label>Supplier ID:</label>
+                            <input type="text" id="p_sid" name="supplier">
+                        </div>
+                        <div class="buttons">
+                            <button class="save" type="submit">Save</button>                           
+                            <button class="delete" onclick="deleteProduct()">Delete</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Bar Code:</label>
-                        <input type="text" id="p_bcode" name = "barcode" >
-                    </div>
-                    <div class="form-group">
-                        <label>Price:</label>
-                        <input type="text" id="p_price" name = "price">
-                    </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <input type="text" id="p_qty" name = "category">
-                    </div>
-                    <div class="form-group">
-                        <label>Supplier ID:</label>
-                        <input type="text" id="p_sid" name = "supplier">
-                    </div>
-                    <div class="buttons">
-                        <button class="save" type = "submit">Save</button>
-                        <button class="search" onclick="searchProduct()">Search</button>
-                        <button class="update" onclick="updateProduct()">Update</button>
-                        <button class="delete" onclick="deleteProduct()">Delete</button>
-                    </div>
-                       </div>
-                       <c:if test="${success}">
-					<script>
-					    alert("Successfully updated!");
-					</script>
-					</c:if>
-                      </form>
-                </div>
+                    <c:if test="${success}">
+                        <script>
+                            alert("Successfully updated!");
+                        </script>
+                    </c:if>
+                </form>
             </div>
-           
- 
         </div>
- 
-
-
+    </div>
 </body>
 </html>

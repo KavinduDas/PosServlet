@@ -163,8 +163,41 @@ public class customerService {
 		}
 	}
 	
-
+	public ArrayList<cutomerNew> customerSerach(String account_number ){
+		cutomerNew cutomerNew = null;
+		try {
+			ArrayList<cutomerNew> cussearch  =  new ArrayList<cutomerNew>();
+			
+			String query = "SELECT * FROM customer ";
+			if (account_number != null && !account_number.isEmpty()) {
+	            query += " WHERE AccountNumber = '" + account_number + "'";
+	        }
+			Statement statement = DB_connect.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			
+			while (rs.next()) {
+	            cutomerNew = new cutomerNew();
+	            cutomerNew.setAccount_number(rs.getInt("AccountNumber"));
+	            cutomerNew.setName(rs.getString("Name"));
+	            cutomerNew.setAddress(rs.getString("Address"));
+	            cutomerNew.setShipping_Address(rs.getString("ShippingAddress"));
+	            cutomerNew.setCity(rs.getString("City"));
+	            cutomerNew.setPhone_number(rs.getInt("Telephone"));
+	            
+	            cussearch.add(cutomerNew);
+	        }
+            System.out.println("Query: " + query + ", Results: " + cussearch.size());
+            return cussearch;	
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
+
+
 	
 	public customer singleDataButton(customer cus) {
 		try {
