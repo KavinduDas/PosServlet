@@ -54,6 +54,22 @@
 
 
 
+
+<servlet>
+<servlet-name>productsearch</servlet-name>
+<servlet-class>servlet.productsearch</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>productsearch</servlet-name>
+<url-pattern> /prosearch </url-pattern>
+</servlet-mapping>
+
+
+
+
+
+
 <servlet>
 <servlet-name>CustomerAdding</servlet-name>
 <servlet-class>servlet.CustomerAdding</servlet-class>

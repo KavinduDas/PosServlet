@@ -281,13 +281,13 @@
         
         <!-- POS Form -->
         <div class="pos-form">
+        <form action="productsearch" method = "post">
             <div class="pos-input-group">
-                <input type="text" id="barcode" class="pos-input" placeholder="Scan or Enter Barcode">
-                <input type="text" id="productName" class="pos-input" placeholder="Product Name" disabled>
-                <input type="text" id="price" class="pos-input" placeholder="Price" disabled>
-                <input type="number" id="quantity" class="pos-input" placeholder="Quantity" value="1" min="1">
-                <button class="pos-add-btn" onclick="addItem()">Add Item</button>
+                <input type="text" id="barcode" class="pos-input" name = "barcode" placeholder="Scan or Enter Barcode">
+                <input type="number" id="quantity" class="pos-input"  name = "quantity" placeholder="Quantity" value="1" min="1">
+                <button class="pos-add-btn" type = "submit">Add Item</button>
             </div>
+            </form>
             
             <!-- Cart Table -->
             <table class="cart-table" id="cartTable">
@@ -303,14 +303,16 @@
                 </thead>
                 <tbody>
                     <!-- Items will be added here dynamically -->
-                        <tr>
-        <td>123456</td>
-        <td>Sample Product</td>
-        <td>$10.00</td>
-        <td>1</td>
-        <td>$10.00</td>
+      <c:forEach var = "product" items ="${product}">
+      <tr>
+        <td>${product.barcode}</td>
+        <td>${product.name}</td>
+        <td>${product.price}</td>
+        <td>${product.quantity}</td>
+        <td>${product.price * product.quantity}</td>
         <td><i class="fas fa-trash remove-item"></i></td>
     </tr>
+    </c:forEach>
                 </tbody>
             </table>
             

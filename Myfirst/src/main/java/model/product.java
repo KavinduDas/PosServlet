@@ -3,6 +3,11 @@ package model;
 public class product {
 
 	String name;
+	int barcode;
+	int price;
+	String  category ;
+	String supplierid;
+	int quantity;
 	public String getName() {
 		return name;
 	}
@@ -33,10 +38,13 @@ public class product {
 	public void setSupplierid(String supplierid) {
 		this.supplierid = supplierid;
 	}
-	int barcode;
-	int price;
-	String  category ;
-	String supplierid;
+
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 	
 
 	

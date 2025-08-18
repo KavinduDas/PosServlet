@@ -162,6 +162,7 @@ public class customerService {
 			return null;
 		}
 	}
+	// Customer Search
 	
 	public ArrayList<cutomerNew> customerSerach(String account_number ){
 		cutomerNew cutomerNew = null;
@@ -197,7 +198,42 @@ public class customerService {
 	}
 	
 
-
+	//Object Search 
+	
+	
+	public ArrayList<product> productSearch(String barcode){
+		product product = null;
+		try {
+			ArrayList<product> productsearch = new ArrayList<product>();
+			
+			String query = "SELECT barcode , Name , price  FROM product ";
+			if (barcode != null && !barcode.isEmpty()) {
+	            query += " WHERE barcode = '" + barcode + "'";
+	        }
+			Statement statement = DB_connect.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			
+			while(rs.next()) {
+				product = new product();
+				product.setBarcode(rs.getInt("barcode"));
+				product.setName(rs.getString("Name"));
+				product.setPrice(rs.getInt("price"));
+//				product.setQuantity(rs.getInt(quantity)); // this from form 
+				
+				productsearch.add(product);
+				
+				
+			}
+			System.out.println("Query : "+ query + "Results : " + productsearch.size() );
+			return productsearch;
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	public customer singleDataButton(customer cus) {
 		try {
