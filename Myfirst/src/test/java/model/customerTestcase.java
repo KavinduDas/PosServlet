@@ -1,6 +1,9 @@
 package model;
 
-public class customer {
+
+
+public class customerTestcase {
+
 	String name;
 	String email ;
 	String password;
@@ -20,7 +23,7 @@ public class customer {
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
+	public void setPassword(String confirm_password) {
 		this.password = password;
 	}
 	public String getConfirm_password() {
@@ -29,7 +32,5 @@ public class customer {
 	public void setConfirm_password(String confirm_password) {
 		this.confirm_password = confirm_password;
 	}
-	
-	
 
 }

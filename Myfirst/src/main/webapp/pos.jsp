@@ -249,7 +249,7 @@
             <i class="fas fa-tachometer-alt"></i> Dashboard
         </a>
         <form action = "adminCustomer" method = "post">
-			<a href="customer.jsp" class="menu-btn">
+			<a href="Customer.jsp" class="menu-btn">
 			    <i class="fas fa-user-circle"></i> Customers
 			</a>
 

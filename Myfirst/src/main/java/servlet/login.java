@@ -45,7 +45,7 @@ public class login extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("JavaForm.jsp");			
 			dispatcher.forward(request, response);
 		}else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("JavaForm.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("LoginNew.jsp");
 			dispatcher.forward(request, response);
 		}
 		

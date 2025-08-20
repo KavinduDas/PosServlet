@@ -209,7 +209,7 @@
     <!-- Header -->
     <div class="header">
         <img src="Image/gem.png" alt="Fashion Paradise Logo" class="logo">
-        Fashion Paradise POS System
+        Pahana Edu POS System
         <div class="user-info">
             <div class="user-avatar">
                 <i class="fas fa-user"></i>

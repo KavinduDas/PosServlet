@@ -273,30 +273,28 @@
 
     <!-- Sidebar -->
     <nav class="sidebar">
-        <a href="dashboard?page=dashboard" class="menu-btn">
+        <a href="JavaForm.jsp" class="menu-btn">
             <i class="fas fa-tachometer-alt"></i> Dashboard
         </a>
         <a href="Customer.jsp" class="menu-btn">
             <i class="fas fa-user-circle"></i> Customers
         </a>
-        <a href="dashboard?page=supplier" class="menu-btn">
+        <a href="Product.jsp" class="menu-btn">
             <i class="fa-solid fa-landmark"></i> Supplier
         </a>
-        <a href="dashboard?page=employee" class="menu-btn">
+        <a href="Product.jsp" class="menu-btn">
             <i class="material-symbols-outlined">badge</i> Employee
         </a>
         <a href="Product.jsp" class="menu-btn active">
             <i class="material-symbols-outlined">add_shopping_cart</i> Product
         </a>
-        <a href="dashboard?page=sales" class="menu-btn">
+        <a href="Product.jsp" class="menu-btn">
             <i class="material-symbols-outlined">finance_mode</i> Sales
         </a>
-        <a href="dashboard?page=invoice" class="menu-btn">
+        <a href="invoice.jsp" class="menu-btn">
             <i class="fas fa-file-invoice"></i> Invoice
         </a>
-        <a href="dashboard?page=reports" class="menu-btn">
-            <i class="fas fa-chart-bar"></i> Reports
-        </a>
+   
     </nav>
 
     <!-- Main Content -->

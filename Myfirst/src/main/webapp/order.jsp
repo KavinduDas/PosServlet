@@ -126,6 +126,7 @@
 <body>
 
 <!-- Right side: Order Summary & Loyalty -->
+
 <div class="left-contents">
     <div class="order-summary">
         <h2>Your Order:</h2>
@@ -155,24 +156,16 @@
     <div class="checkout-form">
         <h2 id="checkout-title">Billing Details</h2>
         <form>
-            <div class="form-group">
-                <label for="contact_information">Contact Information:</label>
-                <select id="contact_information" name="contact_information">
-                    <option value="">Select Contact Information</option>
-                    <option value="1">John Doe</option>
-                    <option value="new">Add New</option>
-                </select>
-            </div>
             <div id="contact_info_form">
                 <div class="label-fields">
-                    <label for="first_name">First Name:</label>
-                    <label for="last_name">Last Name:</label>
-                    <label for="title">Title:</label>
+                    <label for="first_name">Account Number</label>
+                    <label for="last_name">Customer Name </label>
+   
                 </div>
                 <div class="name-fields">
                     <input type="text" id="first_name" name="first_name" required>
                     <input type="text" id="last_name" name="last_name" required>
-                    <input type="text" id="title" name="title" required>
+   
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>

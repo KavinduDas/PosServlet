@@ -102,10 +102,11 @@
         }
 
         /* Main Content Styles */
-        .main-content {
+       .main-content {
             flex: 1;
             padding: 80px 20px 20px 200px;
-           background-color: #1e1e1e;
+            background-color: #1e1e1e;
+            color: white;
         }
 
         .container {
@@ -288,30 +289,28 @@
 
     <!-- Sidebar -->
     <nav class="sidebar">
-        <a href="dashboard?page=dashboard" class="menu-btn">
+        <a href="JavaForm.jsp" class="menu-btn">
             <i class="fas fa-tachometer-alt"></i> Dashboard
         </a>
-        <a href="customer-management.jsp" class="menu-btn active">
+        <a href="Customer.jsp" class="menu-btn active">
             <i class="fas fa-user-circle"></i> Customers
         </a>
-        <a href="dashboard?page=supplier" class="menu-btn">
+        <a href="Customer.jsp" class="menu-btn">
             <i class="fa-solid fa-landmark"></i> Supplier
         </a>
-        <a href="dashboard?page=employee" class="menu-btn">
+        <a href="Customer.jsp" class="menu-btn">
             <i class="material-symbols-outlined">badge</i> Employee
         </a>
-        <a href="dashboard?page=product" class="menu-btn">
+        <a href="Product.jsp" class="menu-btn">
             <i class="material-symbols-outlined">add_shopping_cart</i> Product
         </a>
-        <a href="dashboard?page=sales" class="menu-btn">
+        <a href="Customer.jsp" class="menu-btn">
             <i class="material-symbols-outlined">finance_mode</i> Sales
         </a>
-        <a href="dashboard?page=invoice" class="menu-btn">
+        <a href="Invoice.jsp" class="menu-btn">
             <i class="fas fa-file-invoice"></i> Invoice
         </a>
-        <a href="dashboard?page=reports" class="menu-btn">
-            <i class="fas fa-chart-bar"></i> Reports
-        </a>
+
     </nav>
 
     <!-- Main Content -->
@@ -468,7 +467,7 @@
             
             <form action = "singleDataButton" method = "post">            
             <input type = "hidden" name = "account" value = "${cus.account_number}">
-            <button type = "submit">data</button>>          
+        
             
             </form>
 
