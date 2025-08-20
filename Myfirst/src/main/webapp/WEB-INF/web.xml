@@ -23,12 +23,6 @@
 <url-pattern> /logincus </url-pattern>
 </servlet-mapping>
 
-<servlet>
-<servlet-name>UpdateCustomer</servlet-name>
-<servlet-class>servlet.UpdateCustomer</servlet-class>
-</servlet>
-
-
 
 <servlet>
 <servlet-name>addProduct</servlet-name>
@@ -84,11 +78,6 @@
 
 
 
-<servlet-mapping>
-<servlet-name>UpdateCustomer</servlet-name>
-<url-pattern> /Updatecus </url-pattern>
-</servlet-mapping>
-
 <servlet>
 <servlet-name>adminCustomer</servlet-name>
 <servlet-class>servlet.adminCustomer</servlet-class>
@@ -99,6 +88,20 @@
 <url-pattern> /admincus </url-pattern>
 </servlet-mapping>
 
+
+<servlet>
+<servlet-name>updateCustomer</servlet-name>
+<servlet-class>servlet.updateCustomer</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>updateCustomer</servlet-name>
+<url-pattern> /updatecus </url-pattern>
+</servlet-mapping>
+
+
+
+
 <servlet>
 <servlet-name>singleDataButton</servlet-name>
 <servlet-class>servlet.singleDataButton</servlet-class>
@@ -106,8 +109,13 @@
 
 <servlet-mapping>
 <servlet-name>singleDataButton</servlet-name>
-<url-pattern> /singledatbut </url-pattern>
+<url-pattern> /singledatabutton </url-pattern>
 </servlet-mapping>
+
+
+
+
+
 
 <servlet>
 <servlet-name>deleteCus</servlet-name>

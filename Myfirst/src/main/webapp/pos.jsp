@@ -245,32 +245,32 @@
 
     <!-- Sidebar -->
     <nav class="sidebar">
-        <a href="${pageContext.request.contextPath}/Dashboard.jsp" class="menu-btn <%= request.getRequestURI().contains("Dashboard.jsp") ? "active" : "" %>">
+        <a href="JavaForm.jsp" class="menu-btn">
             <i class="fas fa-tachometer-alt"></i> Dashboard
         </a>
         <form action = "adminCustomer" method = "post">
-			<a href="${pageContext.request.contextPath}/adminCustomer" class="menu-btn">
-			    <i class="fas fa-user-circle"></i> Products
+			<a href="customer.jsp" class="menu-btn">
+			    <i class="fas fa-user-circle"></i> Customers
 			</a>
 
         </form>
         
-        <a href="${pageContext.request.contextPath}/Supplier.jsp" class="menu-btn <%= request.getRequestURI().contains("Supplier.jsp") ? "active" : "" %>">
+        <a href="pos.jsp" class="menu-btn">
             <i class="fa-solid fa-landmark"></i> Supplier
         </a>
-        <a href="${pageContext.request.contextPath}/Employee.jsp" class="menu-btn <%= request.getRequestURI().contains("Employee.jsp") ? "active" : "" %>">
+        <a href="pos.jsp" class="menu-btn">
             <i class="material-symbols-outlined">badge</i> Employee
         </a>
-        <a href="${pageContext.request.contextPath}/Product.jsp" class="menu-btn <%= request.getRequestURI().contains("Product.jsp") ? "active" : "" %>">
+        <a href="Product.jsp" class="menu-btn">
             <i class="material-symbols-outlined">add_shopping_cart</i> Product
         </a>
-        <a href="${pageContext.request.contextPath}/Sales.jsp" class="menu-btn <%= request.getRequestURI().contains("Sales.jsp") ? "active" : "" %>">
+        <a href="JavaForm.jsp" class="menu-btn <%= request.getRequestURI().contains("Sales.jsp") ? "active" : "" %>">
             <i class="material-symbols-outlined">finance_mode</i> Sales
         </a>
-        <a href="${pageContext.request.contextPath}/Invoice.jsp" class="menu-btn <%= request.getRequestURI().contains("Invoice.jsp") ? "active" : "" %>">
+        <a href="invoice.jsp" class="menu-btn <%= request.getRequestURI().contains("Invoice.jsp") ? "active" : "" %>">
             <i class="fas fa-file-invoice"></i> Invoice
         </a>
-        <a href="${pageContext.request.contextPath}/Reports.jsp" class="menu-btn <%= request.getRequestURI().contains("Reports.jsp") ? "active" : "" %>">
+        <a href="" class="menu-btn <%= request.getRequestURI().contains("Reports.jsp") ? "active" : "" %>">
             <i class="fas fa-chart-bar"></i> Reports
         </a>
     </nav>
@@ -328,10 +328,12 @@
             </div>
             
             <!-- Summary -->
+            <c:forEach var = "product" items= "${prodcut}">
             <div class="summary">
                 <span class="summary-label">Total Amount:</span>
                 <span class="summary-value" id="totalAmount">$0.00</span>
             </div>
+            </c:forEach>
             
             <!-- Action Buttons -->
             <div class="action-buttons">

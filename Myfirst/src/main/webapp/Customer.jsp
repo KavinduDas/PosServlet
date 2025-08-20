@@ -205,7 +205,8 @@
 		.buttons button.save { background: #28a745; color: #fff; }
 		.buttons button.delete { background: #dc3545; color: #fff; }
 		.buttons-search button.search { background: #007bff; color: #fff; }
-		.buttons-search button.update { background: #ffc107; color: #000; }
+		.buttons-search button.update,
+        .update { background: #28a745; color: #fff; } /* ✅ Green update button with white text */
 
         .checkbox-group {
             display: flex;
@@ -326,12 +327,6 @@
             <!-- Add Customer Tab -->
             <form action ="CustomerAdding" method = "post">
             <div class="tab-content active" id="add-customer">
-<!--                 <div class="panel"> -->
-<!--                     <div class="form-group"> -->
-<!--                         <label>Search ID:</label> -->
-<!--                         <input type="text" id="c_search" value="0"> -->
-<!--                     </div> -->
-<!--                 </div> -->
                 <div class="panel">
                     <div style="display: flex;">
                         <div style="flex: 1;">
@@ -411,19 +406,23 @@
                     <div style="display: flex; gap: 20px;">
                         <div class="form-group">
                             <label>City:</label>
-                            <input type="text" id="sh_city" value ="${cus.city}">
+                            <input type="text" id="sh_city" name = "city" value ="${cus.city}">
                         </div>
                         <div class="form-group">
                             <label>Telephone:</label>
-                            <input type="text" id="sh_tp"  value ="${cus.phone_number}">
+                            <input type="text" id="sh_tp"  name = "telephone" value ="${cus.phone_number}">
                         </div>
                         <div class="form-group">
                             <label>Name :</label>
-                            <input type="text" id="sh_cp" value ="${cus.name}">
+                            <input type="text" id="sh_cp"  name = "name" value ="${cus.name}">
                         </div>
                         <div class="form-group">
                             <label>Address</label>
-                            <input type="text" id="sh_pn"  value ="${cus.address}">
+                            <input type="text" id="sh_pn" name = "address" value ="${cus.address}">
+                        </div>
+                          <div class="form-group">
+                            <label>Shipping Address</label>
+                            <input type="text" id="sh_pn2" name = "shipping_address" value ="${cus.shipping_Address}">
                         </div>
                     </div>
                 </div>
@@ -436,7 +435,6 @@
                             <th>Billing Address</th>
                             <th>Shipping Address</th>                          
                             <th>City</th>                           
-                       
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -445,23 +443,33 @@
                     <td>${cus.account_number}</td>
                     <td>${cus.name}</td>
                     <td>${cus.phone_number}</td>
+                    <td>${cus.address}</td>
                     <td>${cus.shipping_Address}</td>
-                    <td>${cus.city}</td>                   
-                    
+                    <td>${cus.city}</td>  
+                    <td>
+				    <button class="edit-item">
+				        <i class="fas fa-edit"></i> Edit
+				    </button>
+				</td>
+				                    
+                                
                     </tr>                    
                    </c:forEach>
                     </tbody>
                 </table>
                
                 <div class = "buttons-search">
-                
-                <input type="hidden" name="activeTab" value="search-customer">
-                		<button type = "submit"  class="search">Search</button>
-                        <button class="update" onclick="updateCustomer()">Update</button>
-                 
+                		<button type = "submit"  class="search">Search</button>     
+                        <button type="submit" class="update">Submit</button>
                 </div>
                 
             </div>
+            </form>
+            
+            <form action = "singleDataButton" method = "post">            
+            <input type = "hidden" name = "account" value = "${cus.account_number}">
+            <button type = "submit">data</button>>          
+            
             </form>
 
             <!-- Reports Tab -->
@@ -493,7 +501,6 @@
 
     // Check URL parameter or form submission to set active tab
     window.onload = function () {
-        const urlParams = new URLSearchParams(window.location.search);
         const activeTab = '<%= request.getParameter("activeTab") != null ? request.getParameter("activeTab") : "add-customer" %>';
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));

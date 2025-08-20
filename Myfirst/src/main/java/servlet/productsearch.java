@@ -38,9 +38,18 @@ public class productsearch extends HttpServlet {
 		customerService service = new customerService();
 		
 		String barcodeNum = request.getParameter("barcode");
+		String quantityStr = request.getParameter("quantity");
+        int quantity = 1; // Default value in case quantity is invalid
+        try {
+            quantity = Integer.parseInt(quantityStr);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            // Optionally, set an error message for invalid quantity
+            request.setAttribute("error", "Invalid quantity entered.");
+        }
 		
 		
-		ArrayList<product> product = service.productSearch(barcodeNum);
+		ArrayList<product> product = service.productSearch(barcodeNum , quantity);
 		
 		request.setAttribute("product", product);
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("pos.jsp");

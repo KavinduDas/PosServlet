@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.customer;
+import model.cutomerNew;
 import services.customerService;
 
 
@@ -31,19 +32,17 @@ public class updateCustomer extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 customer cus = new customer();
-		 
-		 cus.setName(request.getParameter("name"));
-		 cus.setName(request.getParameter("email"));
-		 cus.setConfirm_password(request.getParameter("age"));
-		 cus.setName(request.getParameter("password"));
-		 
-		 customerService service = new customerService();		 
-		 service.updateCustomer(cus);
-		 
-		 RequestDispatcher dispatcher = request.getRequestDispatcher("login");	 
-		 
-		 
+		cutomerNew cutomerNew = new cutomerNew();
+		cutomerNew.setAccount_number(Integer.parseInt(request.getParameter("account")));
+		cutomerNew.setName(request.getParameter("name"));
+		cutomerNew.setPhone_number(Integer.parseInt(request.getParameter("telephone")));	
+		cutomerNew.setAddress(request.getParameter("address"));
+		cutomerNew.setShipping_Address(request.getParameter("shipping_address"));
+		
+		customerService service = new customerService();
+		service.updateCustomer(cutomerNew);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Customer.jsp");
+	
 		dispatcher.forward(request, response);
 	}
 

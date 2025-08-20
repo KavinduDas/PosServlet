@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.customer;
+import model.cutomerNew;
 import services.customerService;
 
 
@@ -32,19 +33,19 @@ public class singleDataButton extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		customer cus = new customer();
+	
+		cutomerNew cutomerNew = new cutomerNew();
 		
-		cus.setEmail(request.getParameter("email"));
+		cutomerNew.setAccount_number(Integer.parseInt(request.getParameter("account")));
 		customerService service = new customerService();
 		
-		customer customer = service.singleDataButton(cus);
+		cutomerNew cuNew = service.singleDataButton(cutomerNew);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("pos.jsp");
+		request.setAttribute("customerSearch", cuNew );
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
-		request.setAttribute("customer", customer);
-		
-		
-	
 		dispatcher.forward(request, response);
+		
+		
 	}
 
 }

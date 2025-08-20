@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login - Fashion Paradise</title>
+    <title>Login - Pahana Edu</title>
     <script src="Loginscripts.js"></script>
 </head>
 
@@ -36,23 +36,24 @@ h1{
  font-weight:bold;
 }
 
-#titlename{
+#titlename {
     position: absolute;
     bottom: 150px;
     left: 75px;
     font-size: 15px;
-
+    color: white;
+    z-index: 10; 
+    margin: 0; 
 }
 
-#quotes{
+#quotes {
     position: absolute;
     bottom: 120px;
     left: 75px;
     font-size: 13px;
     color: white;
-
+    z-index: 10;
 }
-
 
 .auth-section h2{
     font-size: 16px;
@@ -104,22 +105,21 @@ a{
 }
 
 .login-container {
+    position: relative; /* Ensure a positioning context for absolute children */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 80px); 
-    transition: transform 0.3s ease; 
+    height: calc(100vh - 80px);
+    transition: transform 0.3s ease;
 }
 
 .left-image {
     position: absolute;
     left: 350px;
     top: 175px;
-    padding-bottom: 20px;
     width: 350px;
-   
+    z-index: 5; /* Lower than #titlename and #quotes to avoid overlap */
 }
-
 
 
 span.error {
@@ -194,7 +194,7 @@ span.error {
 <div class="header">
     <div class="header-content">
      <img src="Image/gem.png" alt="Signature Cuisine Logo" class="logo">
-     <h1>Welcome to the Fashion Paradise</h1>
+     <h1>Welcome to the Pahana Edu</h1>
     </div>
 </div>
 

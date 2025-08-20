@@ -201,7 +201,7 @@ public class customerService {
 	//Object Search 
 	
 	
-	public ArrayList<product> productSearch(String barcode){
+	public ArrayList<product> productSearch(String barcode , int quantity){
 		product product = null;
 		try {
 			ArrayList<product> productsearch = new ArrayList<product>();
@@ -218,7 +218,7 @@ public class customerService {
 				product.setBarcode(rs.getInt("barcode"));
 				product.setName(rs.getString("Name"));
 				product.setPrice(rs.getInt("price"));
-//				product.setQuantity(rs.getInt(quantity)); // this from form 
+				product.setQuantity(quantity); // this from form 
 				
 				productsearch.add(product);
 				
@@ -235,27 +235,42 @@ public class customerService {
 		return null;
 	}
 	
-	public customer singleDataButton(customer cus) {
+	public cutomerNew singleDataButton(cutomerNew cutomerNew) {
+		 
+	
 		try {
-			String query = "SELECT * FROM cashier WHERE email = '"+ cus.getEmail()+"' ";
+			String query = "SELECT * FROM customer WHERE AccountNumber = '"+ cutomerNew.getAccount_number() +"' ";
 			
 			Statement statement = DB_connect.getConnection().createStatement();
 			
 			ResultSet result_set = statement.executeQuery(query);
 			
 			if(result_set.next()) {
-				cus.setName(result_set.getString("name"));
-				cus.setEmail(result_set.getString("email"));
-				cus.setConfirm_password(result_set.getString("confirm_password"));
-				cus.setPassword(result_set.getString("password"));
-				
-				return cus;
+				cutomerNew.setName(result_set.getString("name"));
+				cutomerNew.setAccount_number(result_set.getInt("AccountNumber"));
+				cutomerNew.setPhone_number(result_set.getInt("Telephone"));
+				cutomerNew.setAddress(result_set.getString("Address"));
+				cutomerNew.setShipping_Address(result_set.getString("ShippingAddress"));
+				cutomerNew.setCity(result_set.getString("City"));
+
 			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return cutomerNew;
+	}
+	
+	public void updateCustomer(cutomerNew cutomerNew) {
+		try {
+			String query = "UPDATE customer SET AccountNumber = '" +cutomerNew.getAccount_number() +"' , name = '"+cutomerNew.getName() +"' , Telephone = '"+ cutomerNew.getPhone_number()+"' , Address = '" + cutomerNew.getAddress()+ "' , ShippingAddress = '" + cutomerNew.getShipping_Address()+"' , City = '" + cutomerNew.getCity()+"' WHERE  AccountNumber = '"+cutomerNew.getAccount_number() +"' ";
+			Statement statement = DB_connect.getConnection().createStatement();
+			statement.executeUpdate(query);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 	
 	public void deleteCus(customer cus) {
